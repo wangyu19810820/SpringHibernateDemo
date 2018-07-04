@@ -1,0 +1,104 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+  </context-param>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>config.RootConfig</param-value>
+  </context-param>
+  <!--<context-param>-->
+  <!--<param-name>contextConfigLocation</param-name>-->
+  <!--<param-value>classpath:springroot.xml</param-value>-->
+  <!--</context-param>-->
+
+  <!-- h2数据库配置 -->
+  <context-param>
+    <param-name>db.url</param-name>
+    <param-value>jdbc:h2:file:~/sample.db</param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.user</param-name>
+    <param-value>sa</param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.password</param-name>
+    <param-value></param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.tcpServer</param-name>
+    <param-value>-tcpAllowOthers</param-value>
+  </context-param>
+
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>listener.H2DBServerStartListener</listener-class>
+  </listener>
+
+
+  <!-- SpringSecurity：注册filter，或者新建类继承AbstractSecurityWebApplicationInitializer -->
+  <!--<filter>-->
+  <!--<filter-name>springSecurityFilterChain</filter-name>-->
+  <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+  <!--</filter>-->
+
+  <!--<filter-mapping>-->
+  <!--<filter-name>springSecurityFilterChain</filter-name>-->
+  <!--<servlet-name>DispatchServlet</servlet-name>-->
+  <!--</filter-mapping>-->
+
+  <servlet>
+    <servlet-name>DispatchServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+    <!--<init-param>-->
+    <!--<param-name>contextConfigLocation</param-name>-->
+    <!--<param-value>classpath:springweb.xml</param-value>-->
+    <!--</init-param>-->
+
+    <init-param>
+      <param-name>contextClass</param-name>
+      <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </init-param>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>config.SpringMvcConfig</param-value>
+    </init-param>
+
+  </servlet>
+
+  <servlet>
+    <servlet-name>H2Console</servlet-name>
+    <servlet-class>org.h2.server.web.WebServlet</servlet-class>
+    <init-param>
+      <param-name>webAllowOthers</param-name>
+      <param-value></param-value>
+    </init-param>
+    <init-param>
+      <param-name>trace</param-name>
+      <param-value></param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>DispatchServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>H2Console</servlet-name>
+    <url-pattern>/h2/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>

@@ -13,8 +13,18 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
 
+
     <context:component-scan base-package="dao,service"></context:component-scan>
 
+    <!--<context:property-placeholder location="classpath:database-test.properties"/>-->
+    <!-- 与上面的配置等价，下面的更容易理解 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations"> <!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->
+            <array>
+                <value>classpath:database-test.properties</value>
+            </array>
+        </property>
+    </bean>
 
     <!--&lt;!&ndash; This resolves messages from resource bundles for different locales &ndash;&gt;-->
     <!--<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
@@ -47,10 +57,10 @@
     <!-- Simple implementation of the standard JDBC DataSource interface,
             configuring the plain old JDBC DriverManager via bean properties -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.h2.Driver" />
-        <property name="url" value="jdbc:h2:file:~/sample.db" />
-        <property name="username" value="sa" />
-        <property name="password" value="" />
+        <property name="driverClassName" value="${database.driverClass}" />
+        <property name="url" value="${database.jdbcUrl}" />
+        <property name="username" value="${database.username}" />
+        <property name="password" value="${database.password}" />
     </bean>
 
     <!-- This transaction manager is appropriate for applications that use a single JPA EntityManagerFactory for transactional data access.

@@ -19,8 +19,8 @@ import java.sql.ResultSet;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = config.RootConfig.class)
-@ContextConfiguration(locations = {"classpath:spring.xml"})
+@ContextConfiguration(classes = config.RootConfig.class)
+//@ContextConfiguration(locations = {"classpath:spring.xml"})
 public class TUserTest {
 
     @PersistenceContext

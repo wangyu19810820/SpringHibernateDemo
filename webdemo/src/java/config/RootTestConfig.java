@@ -24,8 +24,8 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = {"dao", "service"})
 @EnableTransactionManagement
-@PropertySource("classpath:database.properties")
-public class RootConfig {
+@PropertySource("classpath:database-test.properties")
+public class RootTestConfig {
 
     // 用PropertySource和env结合使用，也能从配置文件中读取配置项，但是不易采用条件装配
     // @PropertySource("classpath:database-test.properties")

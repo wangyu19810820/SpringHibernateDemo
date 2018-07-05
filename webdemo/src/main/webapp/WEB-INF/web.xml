@@ -20,7 +20,7 @@
   <!-- h2数据库配置 -->
   <context-param>
     <param-name>db.url</param-name>
-    <param-value>jdbc:h2:file:~/sample.db</param-value>
+    <param-value>jdbc:h2:mem:sample</param-value>
   </context-param>
   <context-param>
     <param-name>db.user</param-name>
